@@ -1,4 +1,4 @@
-pythonfrom mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP
 from starlette.applications import Starlette
 from mcp.server.sse import SseServerTransport
 from starlette.requests import Request
@@ -27,7 +27,6 @@ logger = logging.getLogger(__name__)
 async def app_lifespan(server: Server) -> AsyncIterator[Dict[str, Any]]:
     """Initialize application components"""
     logger.info("Starting Socrates server")
-    # Initialize any resources you need
     yield {}  # Empty context for now
     logger.info("Shutting down Socrates server")
 
@@ -76,7 +75,7 @@ async def status_handler(request: Request) -> JSONResponse:
 def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlette:
     """Create a Starlette application with SSE transport."""
     sse = SseServerTransport("/messages/")
-
+    
     async def handle_sse(request: Request) -> None:
         async with sse.connect_sse(
             request.scope,
@@ -88,7 +87,7 @@ def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlett
                 write_stream,
                 mcp_server.create_initialization_options(),
             )
-
+    
     # Create base app with routes
     return Starlette(
         debug=debug,
@@ -106,6 +105,9 @@ def run_server(host="0.0.0.0", port=8080, debug=True):
     mcp_server = mcp._mcp_server
     app = create_starlette_app(mcp_server, debug=debug)
     uvicorn.run(app, host=host, port=port)
+
+# Create the app for uvicorn to use
+app = create_starlette_app(mcp._mcp_server)
 
 if __name__ == "__main__":
     # Get port from environment or use default

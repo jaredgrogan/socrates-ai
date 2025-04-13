@@ -1,11 +1,9 @@
 # Python
 __pycache__/
 *.py[cod]
-*.class
+*$py.class
 *.so
 .Python
-venv/
-env/
 build/
 develop-eggs/
 dist/
@@ -17,12 +15,24 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 
-# Azure
-.azure/
+# Virtual Environment
+venv/
+env/
+.env
+.venv
 
-# Local cache
-socrates_cache/
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
