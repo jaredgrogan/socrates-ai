@@ -1,0 +1,8 @@
+arxiv==1.4.2
+requests==2.32.3
+mcp[cli]>=0.6.0
+PyPDF2>=3.0.0
+httpx>=0.24.0
+asyncio>=3.4.3
+starlette>=0.27.0
+uvicorn>=0.23.0
